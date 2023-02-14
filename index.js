@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 
+// Specify file location and container ID
 const file = '/src/index.html';
 const containerID = '#container';
 
