@@ -1,7 +1,7 @@
 {
   "name": "node-screenshot",
   "version": "0.0.1",
-  "description": "A node module for taking screenshots of responsive HTML elements",
+  "description": "A node tool for taking screenshots of responsive HTML elements",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
