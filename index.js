@@ -8,25 +8,7 @@ const containerID = '#container';
 // Parse CSV file
 var data = fs.readFileSync('sizes.csv').toLocaleString();
 var rows = data.split("\r\n");
-/*
-rows.forEach((row) => {
-    columns = row.split(",");
-    console.log(columns);
-})
-console.log(rows[1].split(",")[2]);
 
-const widthArray = [
-    1280,
-    720,
-    480
-];
-
-const heightArray = [
-    520,
-    1280,
-    720
-];
-*/
 (async () =>{
     // Set URL and selector
     const website_url = __dirname + file;
