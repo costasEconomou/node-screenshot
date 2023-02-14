@@ -4,6 +4,8 @@ const puppeteer = require('puppeteer');
 // Specify file location and container ID
 const file = '/src/index.html';
 const containerID = '#container';
+const format = '.jpg'; // '.jpg', '.png' or '.webp'
+const outputDir = 'images/';
 
 // Parse CSV file
 var data = fs.readFileSync('sizes.csv').toLocaleString();
@@ -37,7 +39,7 @@ var rows = data.split("\r\n");
 
         // Capture screenshot
         await element.screenshot({
-            path: `images/${row.split(",")[0]}_${i+1}.jpg`,
+            path: `${outputDir}${row.split(",")[0]}_${i+1}${format}`,
             fullpage: false
         });    
     }
