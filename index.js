@@ -1,10 +1,7 @@
 const puppeteer = require('puppeteer');
 
-const urlArray = [
-    'https://wikipedia.org',
-    'https://google.com',
-    'https://youtube.com'
-];
+const file = '/src/index.html';
+const containerID = '#container';
 
 const widthArray = [
     1280,
@@ -12,41 +9,44 @@ const widthArray = [
     480
 ];
 
+const heightArray = [
+    520,
+    1280,
+    720
+];
+
 (async () =>{
+    // Set URL and selector
+    const website_url = __dirname + file;
+    const selector = containerID;
+
     // Create a browser instance
     const browser = await puppeteer.launch();
 
     // Create a new page
     const page = await browser.newPage();
-    const website_url = 'https://wikipedia.org';
 
-    // Set viewport width and height
-    // await page.setViewport({ width: 1280, height: 720 });
+    for(var i = 0; i < widthArray.length; i++) {
+        console.log(`Saving image ${i+1}...`);
 
-    for(var i = 0; i < urlArray.length; i++) {
-        console.log(`Saving page ${i+1}...`);
+        // Open HTML doc and selector
+        await page.goto(website_url);
+        await page.waitForSelector(selector);
+        var element = await page.$(selector);
 
-        await page.setViewport({ width: widthArray[i], height: 720 });
-        const website_url = urlArray[0];
-
-        // Open URL in current page
-        await page.goto(website_url, { waitUntil: 'networkidle0' });
+        // Set container width and height in pixels
+        var widthSel = widthArray[i];
+        var heightSel = heightArray[i];
+        await page.$eval(selector, (element, widthSel) => element.style.width = `${widthSel}px`, widthSel);
+        await page.$eval(selector, (element, heightSel) => element.style.height = `${heightSel}px`, heightSel);
 
         // Capture screenshot
-        await page.screenshot({
-            path: `images/screenshot_full${i+1}.jpg`,
+        await element.screenshot({
+            path: `images/screenshot_${i+1}.jpg`,
             fullpage: false
         });
         
     }
-
-    // Open URL in current page
-    //await page.goto(website_url, { waitUntil: 'networkidle0' });
-
-    // Capture screenshot
-    //await page.screenshot({
-    //    path: 'screenshot1.jpg'
-    //});
 
     // Close the browser instance
     await browser.close();
